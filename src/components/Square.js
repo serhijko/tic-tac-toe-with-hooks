@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Square(props) {
+const Square = props => {
   return (
     <button className="square">
       {/* TODO */}
     </button>
   );
-}
+};
 
 export default Square;

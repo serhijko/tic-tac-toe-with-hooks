@@ -1,10 +1,10 @@
 import React from 'react';
 import Square from './Square';
 
-function Board(props) {
-  function renderSquare(i) {
+const  Board = props => {
+  const renderSquare = i => {
     return <Square value={i} />;
-  }
+  };
 
   const status = 'Next player: X';
 
@@ -28,6 +28,6 @@ function Board(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Board;

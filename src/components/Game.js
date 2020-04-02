@@ -1,7 +1,7 @@
 import React from 'react';
 import Board from './Board';
 
-function Game(props) {
+const Game = props => {
   return (
     <div className="game">
       <div className="game-board">
@@ -13,6 +13,6 @@ function Game(props) {
       </div>
     </div>
   );
-}
+};
 
 export default Game;
