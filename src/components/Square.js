@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Square = props => {
+const Square = () => {
+  const [value, setValue] = useState(null);
+
   return (
-    <button className="square" onClick={function() { alert('click'); }}>
-      {props.value}
+    <button
+      className="square"
+      onClick={() => setValue('X')}
+    >
+      {value}
     </button>
   );
 };
