@@ -3,30 +3,30 @@ import Board from './Board';
 import { calculateWinner } from '../helpers/calculateWinner';
 
 const Game = () => {
-  const initialHistory = [{
-    squares: Array(9).fill(null),
-  }];
+  const initialHistory = [
+    { squares: Array(9).fill(null) }
+  ];
   const [history, setHistory] = useState(initialHistory);
   const [xIsNext, setXIsNext] = useState(true);
 
   const handleClick = i => {
-    const current = history[history.length - 1];
-    const newSquares = [...current.squares];
+    const currentStep = history[history.length - 1];
+    const newSquares = [...currentStep.squares];
 
     const winnerDeclared = Boolean(calculateWinner(newSquares));
     const squaresAlreadyFilled = Boolean(newSquares[i]);
     if (winnerDeclared || squaresAlreadyFilled) return;
     
     newSquares[i] = xIsNext ? '❌' : '⭕';
-    setHistory(history.concat([{
-        squares: newSquares,
-      }]),
-    );
-    setXIsNext(!xIsNext);
-  }
+    const newStep = { squares: newSquares };
+    const newHistory = [...history, newStep];
 
-  const current = history[history.length - 1];
-  const winner = calculateWinner(current.squares);
+    setHistory(newHistory);
+    setXIsNext(!xIsNext);
+  };
+
+  const currentStep = history[history.length - 1];
+  const winner = calculateWinner(currentStep.squares);
   const status = winner
     ? `Winner: ${winner}`
     : `Next player: ${xIsNext ? '❌' : '⭕'}`;
@@ -35,8 +35,8 @@ const Game = () => {
     <div className="game">
       <div className="game-board">
         <Board
-          squares={current.squares}
-          onClick={(i) => handleClick(i)}
+          squares={currentStep.squares}
+          onClick={i => handleClick(i)}
         />
       </div>
       <div className="game-info">
