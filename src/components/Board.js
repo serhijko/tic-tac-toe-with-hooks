@@ -1,41 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Square from './Square';
-import { calculateWinner } from '../helpers/calculateWinner';
 
-const Board = () => {
-  const initialSquares = Array(9).fill(null);
-  const [squares, setSquares] = useState(initialSquares);
-  const [xIsNext, setXIsNext] = useState(true);
-
-  const handleClick = i => {
-    const newSquares = [...squares];
-
-    const winnerDeclared = Boolean(calculateWinner(newSquares));
-    const squaresAlreadyFilled = Boolean(newSquares[i]);
-    if (winnerDeclared || squaresAlreadyFilled) return;
-    
-    newSquares[i] = xIsNext ? '❌' : '⭕';
-    setSquares(newSquares);
-    setXIsNext(!xIsNext);
-  }
-
+const Board = props => {
   const renderSquare = i => {
     return (
       <Square
-        value={squares[i]}
-        onClick={() => handleClick(i)}
+        value={props.squares[i]}
+        onClick={() => props.onClick(i)}
       />
     );
   };
 
-  const winner = calculateWinner(squares);
-  const status = winner
-    ? `Winner: ${winner}`
-    : `Next player: ${xIsNext ? '❌' : '⭕'}`;
-
   return (
     <div>
-      <div className="status">{status}</div>
       <div className="board-row">
         {renderSquare(0)}
         {renderSquare(1)}
