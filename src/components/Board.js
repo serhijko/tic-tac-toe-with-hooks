@@ -6,7 +6,7 @@ const  Board = () => {
   const [squares, setSquares] = useState(initialSquares);
 
   const handleClick = i => {
-    const newSquares = squares.slice();
+    const newSquares = [...squares];
     newSquares[i] = 'X';
     setSquares(newSquares);
   }
