@@ -7,10 +7,12 @@ const Game = () => {
     { squares: Array(9).fill(null) }
   ];
   const [history, setHistory] = useState(initialHistory);
+  const [stepNumber, setStepNumber] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
 
   const handleClick = i => {
-    const currentStep = history[history.length - 1];
+    const slicedHistory = history.slice(0, stepNumber + 1);
+    const currentStep = slicedHistory[slicedHistory.length - 1];
     const newSquares = [...currentStep.squares];
 
     const winnerDeclared = Boolean(calculateWinner(newSquares));
@@ -19,10 +21,16 @@ const Game = () => {
     
     newSquares[i] = xIsNext ? '❌' : '⭕';
     const newStep = { squares: newSquares };
-    const newHistory = [...history, newStep];
+    const newHistory = [...slicedHistory, newStep];
 
     setHistory(newHistory);
+    setStepNumber(slicedHistory.length);
     setXIsNext(!xIsNext);
+  };
+
+  const jumpTo = (step) => {
+    setStepNumber(step);
+    setXIsNext((step % 2) === 0);
   };
 
   const moves = history.map((step, move) => {
@@ -30,13 +38,13 @@ const Game = () => {
       ? `Go to move #${move}`
       : `Go to game start`;
     return (
-      <li>
+      <li key={move}>
         <button onClick={() => jumpTo(move)}>{description}</button>
       </li>
     );
   });
 
-  const currentStep = history[history.length - 1];
+  const currentStep = history[stepNumber];
   const winner = calculateWinner(currentStep.squares);
   const status = winner
     ? `Winner: ${winner}`
