@@ -4,11 +4,13 @@ import Square from './Square';
 const  Board = () => {
   const initialSquares = Array(9).fill(null);
   const [squares, setSquares] = useState(initialSquares);
+  const [xIsNext, setXIsNext] = useState(true);
 
   const handleClick = i => {
     const newSquares = [...squares];
-    newSquares[i] = 'X';
+    newSquares[i] = xIsNext ? '❌' : '⭕';
     setSquares(newSquares);
+    setXIsNext(!xIsNext);
   }
 
   const renderSquare = i => {
@@ -20,7 +22,7 @@ const  Board = () => {
     );
   };
 
-  const status = 'Next player: X';
+  const status = 'Next player: ' + (xIsNext ? '❌' : '⭕');
 
   return (
     <div>
