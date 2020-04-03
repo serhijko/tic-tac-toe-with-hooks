@@ -22,7 +22,7 @@ const  Board = () => {
     );
   };
 
-  const status = 'Next player: ' + (xIsNext ? '❌' : '⭕');
+  const status = `Next player: ${xIsNext ? '❌' : '⭕'}`;
 
   return (
     <div>
